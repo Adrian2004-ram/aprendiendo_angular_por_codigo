@@ -9,13 +9,20 @@ import { ProductDetailComponent } from '../product-detail/product-detail.compone
   styleUrl: './product-list.component.css'
 })
 export class ProductListComponent {
+  
   products: Product[] = [
-    { id: 1, title: 'Keyboard' },
+    { id: 1, title: 'Keyboard'},
     { id: 2, title: 'Microphone' },
     { id: 3, title: 'Web camera' },
     { id: 4, title: 'Tablet' }
   ];
+  
   selectedProduct: Product | undefined;
+
+  onSelect(product: Product) {
+    this.selectedProduct = product;
+    console.log(`Selected product: ${product.title}`);
+  }
 
   onAdded() {
     alert(`${this.selectedProduct?.title} added to the cart!`);

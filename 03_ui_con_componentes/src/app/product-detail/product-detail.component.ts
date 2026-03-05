@@ -8,7 +8,7 @@ import { Product } from '../product';
   styleUrl: './product-detail.component.css'
 })
 export class ProductDetailComponent {
-  product = input<Product>();
+  product = input<Product | undefined>();
   added = output();
 
   addToCart() {
