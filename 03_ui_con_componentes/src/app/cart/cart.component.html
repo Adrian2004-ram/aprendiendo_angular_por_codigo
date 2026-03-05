@@ -1,0 +1,16 @@
+<ul>
+    @for (cartItem of cart(); track cartItem.product.id) {
+    <!-- <li class="pill" (click)="selectedProduct = product"> -->
+    <li>
+      @switch (cartItem.product.title) {
+        @case ('Keyboard') { ⌨️ }
+        @case ('Microphone') { 🎙️ }
+        @default { 🏷️ }
+      }
+      {{cartItem.product.title}}
+        <span >x{{cartItem.quantity}}</span>
+    </li>
+  } @empty {
+    <p>No cart items!</p>
+  }
+</ul>
