@@ -21,7 +21,7 @@ export class ProductListComponent {
 
   selectedProduct: Product | undefined;
 
-  cart: {product: Product, quantity: number}[] = [];
+  triggerAddPRoduct: boolean = false;
 
   onSelect(product: Product) {
     this.selectedProduct = product;
@@ -29,17 +29,7 @@ export class ProductListComponent {
   }
 
   onAdded() {
-  
-    const cartItem: {product: Product, 
-                    quantity: number}[] = this.cart.filter( cartItem => cartItem.product.id === this.selectedProduct?.id  )
-                              .map(cartItem => {  
-                                    cartItem.quantity += 1;
-                                    return cartItem;
-                              });
-    if (cartItem.length === 0) {
-      this.cart.push({product: this.selectedProduct!, quantity: 1});
-    }
-
+    this.triggerAddPRoduct = !this.triggerAddPRoduct;
   }
 
 }

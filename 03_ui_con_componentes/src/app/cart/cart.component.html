@@ -1,5 +1,5 @@
 <ul>
-    @for (cartItem of cart(); track cartItem.product.id) {
+    @for (cartItem of cart; track cartItem.product.id) {
     <!-- <li class="pill" (click)="selectedProduct = product"> -->
     <li>
       @switch (cartItem.product.title) {
