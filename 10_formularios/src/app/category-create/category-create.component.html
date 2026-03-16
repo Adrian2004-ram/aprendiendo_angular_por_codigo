@@ -1,0 +1,14 @@
+<h1>Add new category</h1>
+<form [formGroup]="categoryForm" (ngSubmit)="createCategory()">
+  <div>
+    <label for="name">Name</label>
+    <input id="name" formControlName="name" required />
+    @if (categoryForm.controls.name.touched && categoryForm.controls.name.invalid) {
+      <span class="help-text">Name is required</span>
+    }
+  </div>
+  <div>
+    <button type="submit" [disabled]="categoryForm.invalid">Create</button>
+  </div>
+</form>
+

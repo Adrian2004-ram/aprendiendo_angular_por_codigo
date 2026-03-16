@@ -6,8 +6,11 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { authGuard } from './auth.guard';
 import { checkoutGuard } from './checkout.guard';
 import { productsResolver } from './products.resolver';
+import { CategoryListComponent } from './category-list/category-list.component';
+import { CategoryCreateComponent } from './category-create/category-create.component';
 
 export const routes: Routes = [
+  {path: 'categories', component: CategoryListComponent},
   {
     path: 'products',
     component: ProductListComponent,
