@@ -1,0 +1,18 @@
+<div class="header">
+  <h1>Categorías ({{categories.length}})</h1>
+  <button (click)="toggleCreateForm()">
+    {{ showCreateForm ? 'Cancelar' : 'Nueva Categoría' }}
+  </button>
+</div>
+
+@if (showCreateForm) {
+  <app-category-create (categoryCreated)="onCategoryCreated($event)" />
+}
+
+<ul class="category-list">
+  @for (category of categories; track category.id) {
+    <li>{{ category.name }}</li>
+  } @empty {
+    <p>No hay categorías disponibles.</p>
+  }
+</ul>

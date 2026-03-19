@@ -1,0 +1,22 @@
+<form [formGroup]="categoryForm" (ngSubmit)="createCategory()">
+  <div class="form-group">
+    <label for="categoryName">Nombre de la categoría:</label>
+    <input 
+      id="categoryName" 
+      type="text" 
+      formControlName="name"
+      placeholder="Ej: Electrónica"
+    />
+    @if (categoryForm.get('name')?.invalid && categoryForm.get('name')?.touched) {
+      <div class="error">
+        @if (categoryForm.get('name')?.errors?.['required']) {
+          <span>El nombre es obligatorio</span>
+        }
+        @if (categoryForm.get('name')?.errors?.['minlength']) {
+          <span>Mínimo 3 caracteres</span>
+        }
+      </div>
+    }
+  </div>
+  <button type="submit" [disabled]="categoryForm.invalid">Crear Categoría</button>
+</form>

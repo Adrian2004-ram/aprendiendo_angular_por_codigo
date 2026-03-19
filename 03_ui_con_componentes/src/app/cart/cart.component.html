@@ -1,0 +1,14 @@
+@if (items().length > 0) {
+  <div class="cart">
+    <h2>Cart</h2>
+    <ul class="cart-list">
+      @for (item of items(); track item.id) {
+        <li class="cart-item">
+          <span>{{item.title}}</span>
+          <span class="quantity">x{{item.quantity}}</span>
+        </li>
+      }
+    </ul>
+    <p class="total">Total items: {{items().length}}</p>
+  </div>
+}
