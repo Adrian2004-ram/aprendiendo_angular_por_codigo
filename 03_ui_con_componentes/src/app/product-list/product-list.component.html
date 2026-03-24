@@ -4,7 +4,8 @@
 
 <ul class="pill-group">
   @for (product of products; track product.id) {
-    <li class="pill" (click)="selectedProduct = product">
+    <!-- <li class="pill" (click)="selectedProduct = product"> -->
+    <li class="pill" (click)="onSelect(product)">
       @switch (product.title) {
         @case ('Keyboard') { ⌨️ }
         @case ('Microphone') { 🎙️ }
