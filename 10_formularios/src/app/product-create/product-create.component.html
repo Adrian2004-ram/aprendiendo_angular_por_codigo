@@ -23,10 +23,12 @@
   <div>
     <label for="category">Category</label>
     <select id="category" formControlName="category">
-      <option>Select a category</option>
-      <option value="electronics">Electronics</option>
-      <option value="jewelery">Jewelery</option>
-      <option>Other</option>
+      <option disabled>Select a category</option>
+      @for(category of categories; track category.id) {
+
+        <option [value]="category.id">{{ category.name}}</option>
+
+      }
     </select>
   </div>
   <div>

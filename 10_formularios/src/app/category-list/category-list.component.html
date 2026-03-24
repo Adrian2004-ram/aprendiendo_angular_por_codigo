@@ -1,5 +1,5 @@
 <div class="caption">
-<h1>Categories @if (categories.length > 0) { ({{categories.length}}) }</h1>
+<h1>Categories @if (categoriesSearchResult.length > 0) { ({{categoriesSearchResult.length}}) }</h1>
 <a (click)="showCategoryCreate = true">
     <svg
     width="24"
@@ -12,13 +12,15 @@
 </a>
 </div>
 
+<app-search-bar (termSearchBar)="onSearch($event)"></app-search-bar>
+
 @if(showCategoryCreate) {
   <app-category-create (categoryCreated)="onCategoryCreated($event)"></app-category-create>
 }
 
 
 <ul class="pill-group">
-@for( category of categories; track category.id) {
+@for( category of categoriesSearchResult; track category.id) {
   <li class="pill">
     <a>{{category.name}}</a>
   </li>

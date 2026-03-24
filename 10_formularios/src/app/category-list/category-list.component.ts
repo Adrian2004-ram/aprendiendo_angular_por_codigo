@@ -1,23 +1,36 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, inject } from '@angular/core';
 import { CategoryCreateComponent } from "../category-create/category-create.component";
+import { CategoryStateService } from '../category-state.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
 
 
 @Component({
   selector: 'app-category-list',
-  imports: [CategoryCreateComponent],
+  imports: [CategoryCreateComponent, SearchBarComponent],
   templateUrl: './category-list.component.html',
   styleUrl: './category-list.component.css'
 })
 export class CategoryListComponent {
 
+  private destroyRef = inject(DestroyRef);
+  private categoryStateService = inject(CategoryStateService);
+  categories: {id: number, name: string}[] = [];
+  termSearch = '';
+  categoriesSearchResult: {id: number, name: string}[] = [];
 
-  showCategoryCreate = false
+  ngOnInit() {
+    this.categoryStateService.categories$
+    //pipe takeUntilDestroyed destroyRef: cuando el componente se destruye, la suscripción se cancela (unsubscribe) inmediatamente.
+    .pipe(takeUntilDestroyed(this.destroyRef)) 
+    .subscribe( categories => {
+        this.categories = categories;
+        this.onSearch(this.termSearch);
+        console.log('categories:', this.categories);
+    });
+  }
 
-  categories: { id: number, name: string }[] = [ 
-    { id: 1, name: 'Electronics' },
-    { id: 2, name: 'Clothing' },
-    { id: 3, name: 'Books' }
-  ];
+  showCategoryCreate = false;
 
   onCategoryCreated(categoryName: any) {
 
@@ -26,9 +39,19 @@ export class CategoryListComponent {
       id: this.categories.length + 1,
       name: categoryName
     };
-    this.categories.push(newCategory);
+    this.categoryStateService.addCategory(categoryName);
     this.showCategoryCreate = false;
     
+  }
+
+  onSearch(term: string) {
+    this.termSearch = term.toLocaleLowerCase();
+    if (term.length >= 3) {
+      this.categoriesSearchResult = this.categories.filter( cat => cat.name.toLowerCase().includes(this.termSearch));
+      console.log(`Filtrado por ${this.termSearch}: [${this.categoriesSearchResult}] `);
+    } else  {
+      this.categoriesSearchResult = this.categories; 
+    }
   }
 
 }
